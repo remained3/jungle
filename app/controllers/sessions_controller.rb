@@ -18,5 +18,14 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to '/login'
   end
+  #check if user is valid
+  def self.authenticate_with_credentials(email, password)
+    user = User.find_by_email(email)
+    if user && user.authenticate(password)
+      user
+    else
+      nil 
+    end
+  end
 
 end
